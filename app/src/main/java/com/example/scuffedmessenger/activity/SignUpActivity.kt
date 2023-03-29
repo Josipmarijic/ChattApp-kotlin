@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.widget.Toast
 import com.example.scuffedmessenger.databinding.ActivitySignUpBinding
 import com.example.scuffedmessenger.model.User
@@ -62,11 +63,13 @@ class SignUpActivity : AppCompatActivity() {
     }
     //Firebaseauth funktion som läggar till en användar i min firebaseauth samt i min databas
     private fun registerUser(userName:String,email:String,password:String){
+        Log.i("fel", "hej")
         auth.createUserWithEmailAndPassword(email,password)
             .addOnCompleteListener(this){
                 if (it.isSuccessful){
                     val user: FirebaseUser? = auth.currentUser
                     val userId:String = user!!.uid
+                    Log.i("error", userId)
 
                     databaseRefrence = FirebaseDatabase.getInstance().getReference("Users").child(userId)
 

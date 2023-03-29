@@ -34,6 +34,7 @@ class ChatActivity : AppCompatActivity() {
         //Hämtar datan som jag passerade från den förra activityn
         var intent = getIntent()
         var userId = intent.getStringExtra("userId")
+        var userName = intent.getStringExtra("userName")
 
         //Instansierar firebase och användaren som är inloggad och hämtar datan för den usern i databasen
         firebaseUser = FirebaseAuth.getInstance().currentUser
@@ -55,11 +56,11 @@ class ChatActivity : AppCompatActivity() {
 
                 val user = snapshot.getValue(User::class.java)
                 binding.tvUserName.text = user!!.userName
-                if (user.userImage == ""){
-                    binding.imgProfile.setImageResource(R.drawable.ic_launcher_foreground)
-                }else{
-                    Glide.with(this@ChatActivity).load(user.userImage).into(binding.imgProfile)
-                }
+              //  if (user.userImage == ""){
+                //    binding.imgProfile.setImageResource(R.drawable.ic_launcher_foreground)
+                //}else{
+                  //  Glide.with(this@ChatActivity).load(user.userImage).into(binding.imgProfile)
+                //}
             }
         })
 
@@ -70,8 +71,10 @@ class ChatActivity : AppCompatActivity() {
 
             if (messege.isEmpty()){
                 Toast.makeText(applicationContext,"Enter a message",Toast.LENGTH_SHORT).show()
+                binding.msgText.setText("")
             }else{
                 sendMessage(firebaseUser!!.uid,userId,messege)
+                binding.msgText.setText("")
             }
         }
 
@@ -84,16 +87,16 @@ class ChatActivity : AppCompatActivity() {
         var refrence:DatabaseReference? = FirebaseDatabase.getInstance().getReference()
 
         var hashMap:HashMap<String,String> = HashMap()
-        hashMap["senderId"] = senderId
-        hashMap["reciverId"] = reciverId
-        hashMap["messege"] = message
+        hashMap.put("senderId", senderId)
+        hashMap.put("reciverId", reciverId)
+        hashMap.put("messege", message)
 
         refrence!!.child("Chat").push().setValue(hashMap)
     }
 
     fun readMesseage(senderId: String,reciverId: String){
         val databaseReference: DatabaseReference =
-            FirebaseDatabase.getInstance().getReference("chat")
+            FirebaseDatabase.getInstance().getReference("Chat")
 
         databaseReference.addValueEventListener(object : ValueEventListener{
             override fun onCancelled(error: DatabaseError) {
@@ -102,11 +105,13 @@ class ChatActivity : AppCompatActivity() {
 
             //Callback funktion som hämtar snapshot från databasen och visar dom om dom matchar avsändar id och mottagar id så att man kan se meddelanden
             override fun onDataChange(snapshot: DataSnapshot) {
+                chatList.clear()
                 for (dataSnapShot: DataSnapshot in snapshot.children){
                     val chat = dataSnapShot.getValue(Chat::class.java)
 
                     if (chat!!.senderId.equals(senderId) && chat!!.reciverId.equals(reciverId) ||
-                        chat!!.senderId.equals(reciverId) && chat!!.reciverId.equals(senderId)) {
+                        chat!!.senderId.equals(reciverId) && chat!!.reciverId.equals(senderId)
+                    ) {
                         chatList.add(chat)
                     }
 

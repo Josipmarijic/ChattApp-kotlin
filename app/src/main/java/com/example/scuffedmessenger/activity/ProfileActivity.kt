@@ -37,13 +37,13 @@ class ProfileActivity : AppCompatActivity() {
             //Ändrar bild och användar namn till den användaren som är inloggad
             override fun onDataChange(snapshot: DataSnapshot) {
                 val user = snapshot.getValue(User::class.java)
-                binding.etUserName.setText(user!!.userName)
+//                binding.etUserName.setText(user!!.userName)
 
-                if (user.userImage == ""){
-                    binding.userImage.setImageResource(R.drawable.ic_launcher_background)
-                }else{
-                    Glide.with(this@ProfileActivity).load(user.userImage).into(binding.userImage)
-                }
+               // if (user.userImage == ""){
+                 //   binding.userImage.setImageResource(R.drawable.ic_launcher_background)
+                //}else{
+                 //   Glide.with(this@ProfileActivity).load(user.userImage).into(binding.userImage)
+               // }
             }
         })
         //Tillbaka knapp

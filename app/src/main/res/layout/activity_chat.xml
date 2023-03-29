@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:padding="5dp"
-            android:text="<-" />
+            android:text="back" />
 
         <TextView
             android:id="@+id/tvUserName"

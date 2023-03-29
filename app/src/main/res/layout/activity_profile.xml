@@ -75,7 +75,7 @@
 
             <Button
                 android:id="@+id/imgBack"
-                android:text="<-"
+                android:text="back"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"

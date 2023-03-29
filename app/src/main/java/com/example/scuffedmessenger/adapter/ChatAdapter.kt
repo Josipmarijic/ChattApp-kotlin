@@ -27,10 +27,10 @@ class ChatAdapter(private val context: Context, private val chatList:ArrayList<C
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         if (viewType == MESSEGE_TYPE_RIGHT) {
-            var view = LayoutInflater.from(parent.context).inflate(R.layout.item_right, parent, false)
+            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_right, parent, false)
                 return ViewHolder(view)
         }else {
-            var view = LayoutInflater.from(parent.context).inflate(R.layout.item_left, parent, false)
+            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_left, parent, false)
             return ViewHolder(view)
 
         }
@@ -51,7 +51,7 @@ class ChatAdapter(private val context: Context, private val chatList:ArrayList<C
     class ViewHolder(view: View):RecyclerView.ViewHolder(view){
 
         val txtUserName:TextView = view.findViewById(R.id.tvMessage)
-        val imgUser:CircleImageView = view.findViewById(R.id.userImage)
+       // val imgUser:CircleImageView = view.findViewById(R.id.userImage)
 
     }
 

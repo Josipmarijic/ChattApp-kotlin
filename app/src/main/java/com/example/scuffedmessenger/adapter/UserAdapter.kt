@@ -20,7 +20,7 @@ class UserAdapter(private val context: Context,private val userList:ArrayList<Us
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        var view = LayoutInflater.from(parent.context).inflate(R.layout.item_user, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_user, parent, false)
         return ViewHolder(view)
     }
 
@@ -31,11 +31,12 @@ class UserAdapter(private val context: Context,private val userList:ArrayList<Us
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val user = userList[position]
         holder.txtUserName.text = user.userName
-        Glide.with(context).load(user.userImage).into(holder.imgUser)
+      //  Glide.with(context).load(user.userImage).into(holder.imgUser)
 
         holder.layoutUser.setOnClickListener{
             val intent = Intent(context, ChatActivity::class.java)
-            intent.putExtra("UserId", user.userId)
+            intent.putExtra("userId", user.userId)
+            intent.putExtra("userName",user.userName)
             context.startActivity(intent)
 
         }
@@ -45,7 +46,7 @@ class UserAdapter(private val context: Context,private val userList:ArrayList<Us
 
         val txtUserName:TextView = view.findViewById(R.id.userName)
         val txtTemp:TextView = view.findViewById(R.id.temp)
-        val imgUser:CircleImageView = view.findViewById(R.id.userImage)
+//        val imgUser:CircleImageView = view.findViewById(R.id.userImage)
         val layoutUser:LinearLayout = view.findViewById(R.id.layoutUser)
     }
 }
